@@ -17,6 +17,7 @@ import (
 
 	"opencode-go-cliproxyapi/internal/adapter/shared"
 	"opencode-go-cliproxyapi/internal/catalog"
+	"opencode-go-cliproxyapi/internal/config"
 	"opencode-go-cliproxyapi/internal/errclass"
 )
 
@@ -243,7 +244,10 @@ func assertSessionHeaders(t *testing.T, wire map[string]any, wantSession, wantAu
 	} else if got, ok := headers["X-Api-Key"]; !ok || got.([]any)[0].(string) != testKey {
 		t.Fatalf("x-api-key missing: %v", headers)
 	}
-	for _, forbidden := range []string{"X-Opencode-Client", "X-Opencode-Request", "X-Opencode-Project", "User-Agent"} {
+	if got, ok := headers["User-Agent"].([]any); !ok || got[0].(string) != config.UserAgent {
+		t.Fatalf("User-Agent = %v, want %q", headers["User-Agent"], config.UserAgent)
+	}
+	for _, forbidden := range []string{"X-Opencode-Client", "X-Opencode-Request", "X-Opencode-Project"} {
 		if _, ok := headers[forbidden]; ok {
 			t.Fatalf("forbidden header %q present: %v", forbidden, headers)
 		}
@@ -397,7 +401,7 @@ func TestExecuteChatRoute(t *testing.T) {
 	if wire["method"] != http.MethodPost {
 		t.Fatalf("bridged method = %v", wire["method"])
 	}
-	if wire["url"] != "https://opencode.ai/zen/go/v1/chat/completions" {
+	if wire["url"] != "https://opencode.ai/inference/go/v1/chat/completions" {
 		t.Fatalf("bridged url = %v", wire["url"])
 	}
 	headers := wire["headers"].(map[string]any)

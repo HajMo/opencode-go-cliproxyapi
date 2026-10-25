@@ -13,9 +13,17 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+// Version is the plugin release version; UserAgent identifies this plugin to
+// OpenCode Go, which asks clients to send their own user agent rather than
+// a generic HTTP-library name.
+const (
+	Version   = "0.2.3"
+	UserAgent = "opencode-go-cliproxyapi/" + Version
+)
+
 // Defaults (spec 04 §2/§4).
 const (
-	DefaultBaseURL          = "https://opencode.ai/zen/go/v1"
+	DefaultBaseURL          = "https://opencode.ai/inference/go/v1"
 	DefaultModelPrefix      = "opencode-go"
 	DefaultRefreshInterval  = 15 * time.Minute
 	DefaultRequestTimeout   = 5 * time.Minute

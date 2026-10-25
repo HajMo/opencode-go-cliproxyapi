@@ -154,6 +154,7 @@ func upstreamAuthHeaders(route catalog.Route, key, sessionID string) http.Header
 		h = chatcompletions.AuthHeaders(key)
 	}
 	h.Set("x-opencode-session", sessionID)
+	h.Set("User-Agent", config.UserAgent)
 	return h
 }
 
