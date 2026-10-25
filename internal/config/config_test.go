@@ -25,10 +25,10 @@ func TestLoadMinimalAppliesAllDefaults(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Load(minimal) failed: %v", err)
 	}
-	if c.BaseURL != "https://opencode.ai/zen/go/v1" {
+	if c.BaseURL != "https://opencode.ai/inference/go/v1" {
 		t.Errorf("BaseURL = %q", c.BaseURL)
 	}
-	if c.CatalogURL != "https://opencode.ai/zen/go/v1/models" {
+	if c.CatalogURL != "https://opencode.ai/inference/go/v1/models" {
 		t.Errorf("CatalogURL = %q", c.CatalogURL)
 	}
 	if !c.ModelPrefix.Enabled || c.ModelPrefix.Value != "opencode-go" {

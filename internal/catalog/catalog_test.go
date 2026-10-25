@@ -104,6 +104,9 @@ func TestRefreshRequestShape(t *testing.T) {
 	if got := req.Headers.Get("Accept"); got != "application/json" {
 		t.Errorf("Accept = %q", got)
 	}
+	if got := req.Headers.Get("User-Agent"); got != config.UserAgent {
+		t.Errorf("User-Agent = %q, want %q", got, config.UserAgent)
+	}
 }
 
 func TestRefreshSuccess(t *testing.T) {

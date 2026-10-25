@@ -196,6 +196,7 @@ func (m *Manager) Refresh(ctx context.Context, apiKey string) error {
 		Headers: http.Header{
 			"Authorization": []string{"Bearer " + apiKey},
 			"Accept":        []string{"application/json"},
+			"User-Agent":    []string{config.UserAgent},
 		},
 	}
 	resp, err := m.client.Do(ctx, req)
@@ -379,7 +380,7 @@ func (m *Manager) resolve(e rawModel) (Route, string, bool, string) {
 
 // JoinUpstreamURL joins the configured base-url onto an endpoint path and
 // is the single source of truth for that join (spec 05 §2): base-url
-// already carries the version segment (default .../zen/go/v1, catalog at
+// already carries the version segment (default .../inference/go/v1, catalog at
 // {base}/models), so a leading "/v1" on the endpoint is dropped instead of
 // doubled. The authority-escape check (endpointEscapesBase) must parse
 // exactly the URL this produces — two independent join formulas would be
