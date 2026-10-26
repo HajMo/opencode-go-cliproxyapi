@@ -17,7 +17,7 @@ import (
 // OpenCode Go, which asks clients to send their own user agent rather than
 // a generic HTTP-library name.
 const (
-	Version   = "0.2.3"
+	Version   = "0.2.4"
 	UserAgent = "opencode-go-cliproxyapi/" + Version
 )
 
